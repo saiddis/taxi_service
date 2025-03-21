@@ -12,9 +12,14 @@ import (
 
 func main() {
 
-	var mongodbURI string
-	if mongodbURI = os.Getenv("MONGODB_URI"); mongodbURI == "" {
+	var mongodbURIFile string
+	if mongodbURIFile = os.Getenv("MONGODB_URI_FILE"); mongodbURIFile == "" {
 		log.Fatal("error getting db connection string")
+	}
+
+	mongodbURI, err := os.ReadFile(mongodbURIFile)
+	if err != nil {
+		log.Fatal("error reading connection string")
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
@@ -30,7 +35,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	riderEngineProducer, err := riderengine.New(mongodbURI)
+	riderEngineProducer, err := riderengine.New(string(mongodbURI))
 	if err != nil {
 		log.Fatalf("error creating riderengine actor: %v", err)
 	}

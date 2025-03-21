@@ -8,6 +8,10 @@ services:
       - mongo
     ports:
       - "8080:8080"
+    environment:
+      - MONGODB_URI_FILE = /run/secrets/mongodb_uri
+    secrets:
+      - mongodb_uri
 
   mongo:
     container_name: mongo
@@ -21,3 +25,7 @@ services:
     image: mongo
     ports:
       - "27020:27017"
+
+secrets:
+  mongodb_uri: 
+    file: mongodb_uri.txt
