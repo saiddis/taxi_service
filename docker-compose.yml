@@ -1,0 +1,23 @@
+services:
+  rider_service:
+    container_name: rider_service
+    build:
+      context:
+        cmd/rider_service/
+    depends_on:
+      - mongo
+    ports:
+      - "8080:8080"
+
+  mongo:
+    container_name: mongo
+    environment:
+      - MONGODB_URI = ${MONGODB_URI}
+    restart:
+      always
+    logging:
+      options:
+        max-size: 1g
+    image: mongo
+    ports:
+      - "27020:27017"
