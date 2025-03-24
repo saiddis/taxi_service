@@ -9,3 +9,5 @@ type FindDrivers struct {
 	Lng   float64
 	Range float64
 }
+
+type Ping struct{}
