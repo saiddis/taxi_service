@@ -22,4 +22,4 @@ EXPOSE 8080
 
 USER nonroot:nonroot
 
-ENTRYPOINT ["/rider_service"]
+CMD ["/rider_service"]
