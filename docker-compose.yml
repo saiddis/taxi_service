@@ -1,22 +1,18 @@
 services:
-  rider_service:
-    container_name: rider_service
+  server_session:
+    container_name: server_session
     build:
       context:
-        cmd/rider_service/
+        cmd/server_session/
     depends_on:
       - mongo
     ports:
       - "8080:8080"
     environment:
-      - MONGODB_URI_FILE = /run/secrets/mongodb_uri
-    secrets:
-      - mongodb_uri
+      - MONGODB_URI=${MONGODB_URI}
 
   mongo:
     container_name: mongo
-    environment:
-      - MONGODB_URI = ${MONGODB_URI}
     restart:
       always
     logging:
@@ -25,7 +21,3 @@ services:
     image: mongo
     ports:
       - "27020:27017"
-
-secrets:
-  mongodb_uri: 
-    file: mongodb_uri.txt
